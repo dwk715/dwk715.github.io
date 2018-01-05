@@ -184,7 +184,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Startseite
+            Home
           </a>
         </li>
       
@@ -194,7 +194,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archiv
+            Archives
           </a>
         </li>
       
@@ -217,128 +217,6 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/10/31/收集整个网站数据/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Dlala">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Note">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/10/31/收集整个网站数据/" itemprop="url">收集整个网站数据</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-10-31T09:07:54+08:00">
-                2016-10-31
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="收集整个网站的数据"><a href="#收集整个网站的数据" class="headerlink" title="收集整个网站的数据"></a>收集整个网站的数据</h1><p>代码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="comment"># @Time    : 2016/11/15 下午3:06</span></span><br><span class="line"><span class="comment"># @Author  : Dwk</span></span><br><span class="line"><span class="comment"># @File    : wikiLink.py</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> urllib.request <span class="keyword">import</span> urlopen</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> pymysql.cursors</span><br><span class="line"></span><br><span class="line"><span class="comment"># 请求URL并把结果使用UTF-8编码</span></span><br><span class="line">resp = urlopen(<span class="string">"https://en.wikipedia.org/wiki/Main_Page"</span>).read().decode(<span class="string">"utf-8"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用BeautifulSoup解析</span></span><br><span class="line">soup = BeautifulSoup(resp, <span class="string">"html.parser"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取所有以/wiki/开头的a标签</span></span><br><span class="line">urls = soup.find_all(<span class="string">"a"</span>, href=re.compile(<span class="string">"^/wiki/"</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出词条对应的名称和URL</span></span><br><span class="line"><span class="keyword">for</span> url <span class="keyword">in</span> urls:</span><br><span class="line">    <span class="comment"># 过滤以.jpg或者.JPG结尾的链接</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> re.search(<span class="string">"\.(jpg|JPG)$"</span>, url[<span class="string">"href"</span>]):</span><br><span class="line">        <span class="comment"># 输出url的文字和对应的链接</span></span><br><span class="line">        print(<span class="string">'&#123;0:40&#125; --&gt; &#123;1:10&#125;'</span>.format(url.get_text(), <span class="string">"https://en.wikipedia.org/wiki/"</span> + url[<span class="string">"href"</span>]))</span><br><span class="line">        <span class="comment"># 获取数据库链接</span></span><br><span class="line">        connection = pymysql.connect(host=<span class="string">'localhost'</span>,</span><br><span class="line">                                     user=<span class="string">'root'</span>,</span><br><span class="line">                                     password=<span class="string">'0715'</span>,</span><br><span class="line">                                     db=<span class="string">'wikiUrls'</span>,</span><br><span class="line">                                     charset=<span class="string">'utf8mb4'</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="comment"># 获取会话指针</span></span><br><span class="line">            <span class="keyword">with</span> connection.cursor() <span class="keyword">as</span> cursor:</span><br><span class="line">                <span class="comment"># 创建sql语句</span></span><br><span class="line">                sql = <span class="string">"insert into `urls`(`urlName`, `urlHref`) values (%s, %s)"</span></span><br><span class="line">                <span class="comment"># 执行sql语句</span></span><br><span class="line">                cursor.execute(sql, (url.get_text(), <span class="string">"https://en.wikipedia.org/wiki/"</span> + url[<span class="string">"href"</span>]))</span><br><span class="line">                <span class="comment"># 提交</span></span><br><span class="line">                connection.commit()</span><br><span class="line">        <span class="keyword">finally</span>:</span><br><span class="line">            connection.close()</span><br></pre></td></tr></table></figure>
-<p>下面是操作已保存的数据库的代码：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="comment"># @Time    : 2016/11/15 下午4:35</span></span><br><span class="line"><span class="comment"># @Author  : Dwk</span></span><br><span class="line"><span class="comment"># @File    : readMysql.py</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> pymysql.cursors</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取链接</span></span><br><span class="line">connection = pymysql.connect(host=<span class="string">'localhost'</span>,</span><br><span class="line">                             user=<span class="string">'root'</span>,</span><br><span class="line">                             password=<span class="string">'0715'</span>,</span><br><span class="line">                             db=<span class="string">'wikiUrls'</span>,</span><br><span class="line">                             charset=<span class="string">'utf8mb4'</span>)</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="comment"># 获取会话指针</span></span><br><span class="line">    <span class="keyword">with</span> connection.cursor() <span class="keyword">as</span> cursor:</span><br><span class="line">        <span class="comment"># 查询语句数量</span></span><br><span class="line">        sql = <span class="string">"select `urlName`,`urlHref` FROM  `urls` where `id` is not null"</span></span><br><span class="line">        count = cursor.execute(sql)</span><br><span class="line">        print(count)</span><br><span class="line">        <span class="comment"># 查询数据</span></span><br><span class="line">        result = cursor.fetchmany(size=<span class="number">3</span>)</span><br><span class="line">        print(result)</span><br><span class="line">        result = cursor.fetchall()</span><br><span class="line">        print(result)</span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    connection.close()</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
     
       
 
@@ -382,7 +260,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-10-19T15:25:14+08:00">
                 2016-10-19
@@ -506,7 +384,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-10-19T08:37:12+08:00">
                 2016-10-19
@@ -629,7 +507,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-09-21T09:23:47+08:00">
                 2016-09-21
@@ -769,7 +647,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-08-29T08:37:03+08:00">
                 2016-08-29
@@ -922,7 +800,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-08-24T14:31:10+08:00">
                 2016-08-24
@@ -1056,7 +934,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-08-17T10:29:02+08:00">
                 2016-08-17
@@ -1206,7 +1084,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-08-17T10:05:59+08:00">
                 2016-08-17
@@ -1335,7 +1213,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-08-16T22:10:13+08:00">
                 2016-08-16
@@ -1549,7 +1427,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-08-12T08:54:02+08:00">
                 2016-08-12
@@ -1593,6 +1471,137 @@
           
             <p>老样子，在Mac OS还是改下awk的版本为gnu awk</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">brew install coreutils</span><br><span class="line">brew install gawk</span><br><span class="line">alias awk=gawk</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/08/10/yum-downloadonly/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Dlala">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/08/10/yum-downloadonly/" itemprop="url">yum downloadonly</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-08-10T13:57:25+08:00">
+                2016-08-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Issue"><a href="#Issue" class="headerlink" title="Issue"></a>Issue</h2><ul>
+<li>How do I use yum to download a package withoout installing it?</li>
+</ul>
+<h2 id="Resolution"><a href="#Resolution" class="headerlink" title="Resolution"></a>Resolution</h2><h3 id="Yumdownloader"><a href="#Yumdownloader" class="headerlink" title="Yumdownloader"></a>Yumdownloader</h3><p>if downloading a installed package, “yumdownloader” is useful.</p>
+<p>1. Install the yum-utils package:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># yum install yum-utils</span><br></pre></td></tr></table></figure>
+<p>2. Run the command followed by the desired package:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># yumdownloader &lt;package&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="Note"><a href="#Note" class="headerlink" title="Note:"></a>Note:</h4><ul>
+<li>The package is saved in the current working directly by default; use the –destdir option to specify an alternate location.</li>
+<li>Be sure to add –resolve if you need to download dependencies.</li>
+</ul>
+<h3 id="install-package"><a href="#install-package" class="headerlink" title="install package"></a>install package</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#rpm -ivh &lt;package&gt;</span><br><span class="line">-i : install 的意思</span><br><span class="line">-v : 察看更細部的安裝資訊畫面</span><br><span class="line">-h : 以安裝資訊列顯示安裝進度</span><br><span class="line">-Uvh : 後面接的軟體即使沒有安裝過，則系統將予以直接安裝； 若後面接的軟體有安裝過舊版，則系統自動更新至新版；</span><br></pre></td></tr></table></figure>
           
         
       
@@ -1677,8 +1686,8 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">27</span>
-                  <span class="site-state-item-name">Artikel</span>
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">posts</span>
                 </a>
               </div>
             
@@ -1691,7 +1700,7 @@
               <div class="site-state-item site-state-tags">
                 
                   <span class="site-state-item-count">18</span>
-                  <span class="site-state-item-name">Tags</span>
+                  <span class="site-state-item-name">tags</span>
                 
               </div>
             
@@ -1737,7 +1746,7 @@
 </div>
 
 
-  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
 
 
 
