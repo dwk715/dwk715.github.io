@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Python,正则表达式," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="正则表达式基础Python的正则表达式依赖于re模块：1import re 基本结构为：string –&amp;gt; Pattern –&amp;gt; Match –&amp;gt;result 简单示例： 123456import restr1 = &apos;Dlala is dlala&apos;pa = re.compile(r&apos;Dlala&apos;) #r表示原字符串ma = pa.match(str1)result = ma.gr">
+<meta name="keywords" content="Python,正则表达式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python正则表达式学习">
+<meta property="og:url" content="http://yoursite.com/2016/08/16/python-re/index.html">
+<meta property="og:site_name" content="Note">
+<meta property="og:description" content="正则表达式基础Python的正则表达式依赖于re模块：1import re 基本结构为：string –&amp;gt; Pattern –&amp;gt; Match –&amp;gt;result 简单示例： 123456import restr1 = &apos;Dlala is dlala&apos;pa = re.compile(r&apos;Dlala&apos;) #r表示原字符串ma = pa.match(str1)result = ma.gr">
+<meta property="og:updated_time" content="2016-08-29T00:56:13.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python正则表达式学习">
+<meta name="twitter:description" content="正则表达式基础Python的正则表达式依赖于re模块：1import re 基本结构为：string –&amp;gt; Pattern –&amp;gt; Match –&amp;gt;result 简单示例： 123456import restr1 = &apos;Dlala is dlala&apos;pa = re.compile(r&apos;Dlala&apos;) #r表示原字符串ma = pa.match(str1)result = ma.gr">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/08/16/python-re/"/>
+
+
+
+
+
+  <title>python正则表达式学习 | Note</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Note</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Startseite
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archiv
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/08/16/python-re/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Dlala">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">python正则表达式学习</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-08-16T22:10:13+08:00">
+                2016-08-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="正则表达式基础"><a href="#正则表达式基础" class="headerlink" title="正则表达式基础"></a>正则表达式基础</h2><p><strong>Python的正则表达式依赖于re模块：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import re</span><br></pre></td></tr></table></figure></p>
+<p><strong>基本结构为：</strong><br>string –&gt; Pattern –&gt; Match –&gt;result</p>
+<p>简单示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">str1 = <span class="string">'Dlala is dlala'</span></span><br><span class="line">pa = re.compile(<span class="string">r'Dlala'</span>) <span class="comment">#r表示原字符串</span></span><br><span class="line">ma = pa.match(str1)</span><br><span class="line">result = ma.group()</span><br><span class="line"><span class="keyword">print</span> result</span><br></pre></td></tr></table></figure>
+<p>另一个基本示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">str1 = <span class="string">'Dlala is dlala'</span></span><br><span class="line">ma = re.match(<span class="string">r'Dlala'</span>, str1)</span><br><span class="line">result = ma.group()</span><br><span class="line"><span class="keyword">print</span> result</span><br></pre></td></tr></table></figure>
+<p><strong>正则表达式语法(匹配单个字符)：</strong></p>
+<table>
+<thead>
+<tr>
+<th>字符</th>
+<th>匹配</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> .</td>
+<td>匹配任意字符（除\n外）</td>
+<td>re.match(r’.’,’d’)</td>
+</tr>
+<tr>
+<td> […]</td>
+<td>匹配字符集</td>
+<td>re.match(r’[a-zA-Z0-9]’,’d’)</td>
+</tr>
+<tr>
+<td> \d / \D</td>
+<td>匹配数字 ／ 非数字</td>
+<td>re.match(r’\d’, ‘0’)</td>
+</tr>
+<tr>
+<td> \s / \S</td>
+<td>匹配空白 ／ 非空白字符</td>
+<td>re.match(r’\s’, ‘ ‘)</td>
+</tr>
+<tr>
+<td> \w / \W</td>
+<td>匹配单词字符[a-zA-Z0-9] / 非单词字符</td>
+<td>re.match(r’\w’, ‘d’)</td>
+</tr>
+</tbody>
+</table>
+<p> <strong>正则表达式语法(匹配多个字符):</strong></p>
+<table>
+<thead>
+<tr>
+<th>字符</th>
+<th>匹配</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>  *</td>
+<td>匹配前一个字符0到无限次</td>
+<td>re.match(r’[A-Z][a-z]*’,  ‘Dlala123’)</td>
+</tr>
+<tr>
+<td>  +</td>
+<td>匹配前一个字符1到无限次</td>
+<td>ma = re.match(r’[_a-zA-Z]+[\w]*’, ‘_Dlala123’)</td>
+</tr>
+<tr>
+<td>  ?</td>
+<td>匹配前一个字符0次或1次</td>
+<td>ma = re.match(r’[1-9]?[0-9]*’,’76’)</td>
+</tr>
+<tr>
+<td>  {m} / {m,n}</td>
+<td>匹配一个字符m次 ／ m到n次</td>
+<td>ma = re.match(r’[0-9A-Za-z]{6,9}@mail.com’, ‘dwk715@mail.com’)</td>
+</tr>
+<tr>
+<td>  *? / +? / ??</td>
+<td>匹配模式变为非贪婪（尽可能减少匹配字符）</td>
+<td>0次，1次，0次</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Python-re模块"><a href="#Python-re模块" class="headerlink" title="Python re模块"></a>Python re模块</h2><p>re模块有很多个方法，下面介绍一下：</p>
+<p><code>search(pattern, string, flags=0)</code><br>在一个字符串中查找匹配</p>
+<p>类似于字符串的find</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">str1 = <span class="string">"we have 1000 seed"</span></span><br><span class="line">info = re.search(<span class="string">r'\d+'</span>, str1)</span><br><span class="line">print(info.group()) <span class="comment">#1000</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p><code>findall(pattern, string, flags=0)</code><br>找到匹配，返回所有匹配部分的列表</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">str1 = <span class="string">"javascript=80, python=88, html=100"</span></span><br><span class="line">info = re.findall(<span class="string">r'\d+'</span>, str1)</span><br><span class="line">print(info)</span><br><span class="line">print(<span class="string">'sum is'</span>, sum(int(x) <span class="keyword">for</span> x <span class="keyword">in</span> info))</span><br></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sub(pattern, repl. string, count=0, flags=0)</span><br><span class="line">#pattern 正则表达式</span><br><span class="line">#repl 替换的字符串或者函数表达式</span><br><span class="line">#string 被替换的字符串</span><br><span class="line">#count 替换次数限制</span><br><span class="line">#flags</span><br></pre></td></tr></table></figure>
+<p>将字符串中匹配正则表达式的部分替换为其他值</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">str1 = <span class="string">'Dlala is 22 years old'</span></span><br><span class="line">info = re.sub(<span class="string">r'\d+'</span>, <span class="string">'23'</span>, str1)</span><br><span class="line">print(info)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">str1 = <span class="string">'Dlala is 22 years old'</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">addOne</span><span class="params">(match)</span>:</span></span><br><span class="line">	val = match.group()</span><br><span class="line">	age = int(val) + <span class="number">1</span></span><br><span class="line">	<span class="keyword">return</span> str(age)</span><br><span class="line"></span><br><span class="line"><span class="comment">#这里的match是正则表达式匹配到的部分</span></span><br><span class="line">print(re.sub(<span class="string">r'\d+'</span>, addOne, str1))</span><br></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">split(pattern, string, maxsplit=0, flags=0)</span><br><span class="line"># maxsplit为分割的次数</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">str1 = <span class="string">"I'm learning:python, javascript, html and css"</span></span><br><span class="line">info = re.split(<span class="string">r':|, | and '</span>, str1)</span><br><span class="line">print(info)</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"># Python</a>
+          
+            <a href="/tags/正则表达式/" rel="tag"># 正则表达式</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/12/awk/" rel="next" title="awk">
+                <i class="fa fa-chevron-left"></i> awk
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/17/crawler-python-test/" rel="prev" title="python网络爬虫练习">
+                python网络爬虫练习 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Dlala</p>
+              <p class="site-description motion-element" itemprop="description">编程是不可能离开Google的(￣^￣)ゞ</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">Artikel</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">Tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#正则表达式基础"><span class="nav-number">1.</span> <span class="nav-text">正则表达式基础</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python-re模块"><span class="nav-number">2.</span> <span class="nav-text">Python re模块</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Dlala</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

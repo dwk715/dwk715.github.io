@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="shell,sed," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="sed学习在Mac OS上使用sed是BSD sed 会产生很多的不便，因此可以替换一下 12brew install gnu-sedalias sed=gsed sed(stream editor)流编辑器，用程序的方式来编辑文本。基本上使用正则模式匹配。 sed的官方手册 s替换命令首先写一下可能会用到的正则的东西    语法 作用 例子     ^ 一行的开始 /^#/ 以#开头的匹配">
+<meta name="keywords" content="shell,sed">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sed学习">
+<meta property="og:url" content="http://yoursite.com/2016/08/03/sed学习/index.html">
+<meta property="og:site_name" content="Note">
+<meta property="og:description" content="sed学习在Mac OS上使用sed是BSD sed 会产生很多的不便，因此可以替换一下 12brew install gnu-sedalias sed=gsed sed(stream editor)流编辑器，用程序的方式来编辑文本。基本上使用正则模式匹配。 sed的官方手册 s替换命令首先写一下可能会用到的正则的东西    语法 作用 例子     ^ 一行的开始 /^#/ 以#开头的匹配">
+<meta property="og:updated_time" content="2016-08-03T07:07:55.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="sed学习">
+<meta name="twitter:description" content="sed学习在Mac OS上使用sed是BSD sed 会产生很多的不便，因此可以替换一下 12brew install gnu-sedalias sed=gsed sed(stream editor)流编辑器，用程序的方式来编辑文本。基本上使用正则模式匹配。 sed的官方手册 s替换命令首先写一下可能会用到的正则的东西    语法 作用 例子     ^ 一行的开始 /^#/ 以#开头的匹配">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/08/03/sed学习/"/>
+
+
+
+
+
+  <title>sed学习 | Note</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Note</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Startseite
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archiv
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/08/03/sed学习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Dlala">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">sed学习</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-08-03T15:06:10+08:00">
+                2016-08-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="sed学习"><a href="#sed学习" class="headerlink" title="sed学习"></a>sed学习</h1><p><em>在Mac OS上使用sed是BSD sed 会产生很多的不便，因此可以替换一下</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew install gnu-sed</span><br><span class="line">alias sed=gsed</span><br></pre></td></tr></table></figure>
+<p><mark>sed</mark>(stream editor)流编辑器，用程序的方式来编辑文本。基本上使用正则模式匹配。</p>
+<p><a href="http://www.gnu.org/software/sed/manual/sed.html" target="_blank" rel="noopener">sed的官方手册</a></p>
+<h2 id="s替换命令"><a href="#s替换命令" class="headerlink" title="s替换命令"></a>s替换命令</h2><p>首先写一下可能会用到的正则的东西</p>
+<table>
+<thead>
+<tr>
+<th>语法</th>
+<th>作用</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>^</td>
+<td>一行的开始</td>
+<td>/^#/ 以#开头的匹配</td>
+</tr>
+<tr>
+<td>$</td>
+<td>一行的结尾</td>
+<td>/}$/ 以}结尾的匹配</td>
+</tr>
+<tr>
+<td>\&lt;</td>
+<td>字符串的开始</td>
+<td>/&lt;adc 表示以abc为首的词</td>
+</tr>
+<tr>
+<td>></td>
+<td>字符串的结尾</td>
+<td>abc/&gt; 表示以abc为尾的词</td>
+</tr>
+<tr>
+<td>.</td>
+<td>任何单个字符</td>
+<td></td>
+</tr>
+<tr>
+<td>*</td>
+<td>某个字符出现0到无限次</td>
+<td></td>
+</tr>
+<tr>
+<td>[]</td>
+<td>字符集</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p>有一段如下的文字pet.txt：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">This is my cat</span><br><span class="line">  my cat&apos;s name is betty</span><br><span class="line">This is my dog</span><br><span class="line">  my dog&apos;s name is frank</span><br><span class="line">This is my fish</span><br><span class="line">  my fish&apos;s name is george</span><br><span class="line">This is my goat</span><br><span class="line">  my goat&apos;s name is adam</span><br></pre></td></tr></table></figure>
+<p>要把其中的<code>my</code>替换为<code>Dlala&#39;s</code>，就使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed &quot;s/my/Dlala&apos;s/g&quot; pet.txt</span><br></pre></td></tr></table></figure>
+<p>这里使用<code>&quot;&quot;</code>是为了能转义，其中，<code>s</code>代表替换命令，<code>/my/</code>代表匹配my，’/Dlala’s/‘代表把匹配替换成Dlala’s，/g和正则中一样，为全局模式，表示一行上替换所有的匹配。</p>
+<p>上述的sed并没有对文件的内容进行修改，只是把处理后的内容输出出来，如果要修改原文件，就使用重定向，如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed &quot;s/my/Dlala&apos;s/g&quot; pet.txt &gt; Dlala_pet.txt</span><br></pre></td></tr></table></figure>
+<p>或者也可以使用<code>-i</code>参数直接修改文件的内容:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -i &quot;s/my/Dlala&apos;s/g&quot; pet.txt</span><br></pre></td></tr></table></figure>
+<p>这里如果使用OS X的话要这样写</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -i &apos;&apos; &quot;s/my/Dlala&apos;s/g&quot; pet.txt</span><br></pre></td></tr></table></figure>
+<p>这是因为<a href="http://stackoverflow.com/questions/16745988/sed-command-works-fine-on-ubuntu-but-not-mac" target="_blank" rel="noopener">Ubuntu ships with GNU sed, where the suffix for the -i option is optional. OS X ships with BSD sed, where the suffix is mandatory. Try sed -i ‘’</a></p>
+<hr>
+<p>来写个实例，获取html标签内的内容</p>
+<p>index.html如下</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">b</span>&gt;</span>This<span class="tag">&lt;/<span class="name">b</span>&gt;</span> is what <span class="tag">&lt;<span class="name">span</span> <span class="attr">style</span>=<span class="string">"text-decoration: underline;"</span>&gt;</span>I<span class="tag">&lt;/<span class="name">span</span>&gt;</span> meant. Understand?</span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>使用sed命令如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed &quot;s/&lt;[^&gt;]*&gt;//g&quot; index.html</span><br></pre></td></tr></table></figure>
+<p>输出如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">This is what I meant. Understand?</span><br></pre></td></tr></table></figure>
+<hr>
+<p>在每一行的前面加东西：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed &quot;s/^/#/g&quot; pet.txt</span><br></pre></td></tr></table></figure>
+<hr>
+<p>在每一行的后面加东西：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed &quot;s/$/ --- /g&quot; pet.txt</span><br></pre></td></tr></table></figure>
+<hr>
+<p>替换第三行的制定内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed &quot;3s/my/your/g&quot; pet.txt</span><br></pre></td></tr></table></figure>
+<hr>
+<p>替换3到6行的指定内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed &quot;3,6s/my/your/g&quot; pet.txt</span><br></pre></td></tr></table></figure>
+<hr>
+<p>修改一个txt如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">This is my cat, my cat&apos;s name is betty</span><br><span class="line">This is my dog, my dog&apos;s name is frank</span><br><span class="line">This is my fish, my fish&apos;s name is george</span><br><span class="line">This is my goat, my goat&apos;s name is adam</span><br></pre></td></tr></table></figure>
+<p>只替换每一行的第一个s：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed &quot;s/s/S/1&quot; pet.txt</span><br></pre></td></tr></table></figure>
+<p>只替换每一行的第二个s：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed &quot;s/s/S/2&quot; pet.txt</span><br></pre></td></tr></table></figure>
+<p>只替换每一行的<strong>第三个以后的</strong>s：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed &quot;s/s/S/3g&quot; pet.txt</span><br></pre></td></tr></table></figure>
+<p>此命令只能在Linux下执行，原因还是sed的版本问题。</p>
+<hr>
+<p>使用&amp;来当做被匹配的变量，然后在其左右加内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed &apos;s/my/[&amp;]/g&apos; pet.txt</span><br></pre></td></tr></table></figure>
+<h2 id="多个匹配"><a href="#多个匹配" class="headerlink" title="多个匹配"></a>多个匹配</h2><p>如果需要一次替换多个模式，可以使用多个匹配，每个模式之间使用；分割，下面写两个例子:</p>
+<p>第一个例子是这样的，替换一到三行的my，并且第三行到最后一行的This</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed &apos;1,3s/my/your/g; 3,$s/This/That/g&apos; pet.txt</span><br></pre></td></tr></table></figure>
+<p>这里的<code>&#39;&#39;</code>不能用<code>&quot;&quot;</code>代替！</p>
+<hr>
+<p>上述的命令等价于：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -e&apos;1,3s/my/your/g&apos; -e &apos;3,$s/This/That/g&apos; pet.txt</span><br></pre></td></tr></table></figure>
+<p>（这里就使用了sed的-e命令行参数）这里也不要使用<code>&quot;&quot;</code>因为会造成<code>$</code>不起作用的情况。</p>
+<h2 id="圆括号匹配"><a href="#圆括号匹配" class="headerlink" title="圆括号匹配"></a>圆括号匹配</h2><p>圆括号括起来的正则表达式所匹配的字符串可以当成变量来使用，sed中使用的是\1,\2…</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed &apos;s/This is my \([^,]*\),.*is \(.*\)/\1:\2/g&apos; pet.txt</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cat:betty</span><br><span class="line">dog:frank</span><br><span class="line">fish:george</span><br><span class="line">goat:adam</span><br></pre></td></tr></table></figure>
+<h2 id="sed的命令"><a href="#sed的命令" class="headerlink" title="sed的命令"></a>sed的命令</h2><h3 id="N命令"><a href="#N命令" class="headerlink" title="N命令"></a>N命令</h3><p>N命令–把下一行的内容纳入当成缓冲区做匹配。</p>
+<p>例如，当使用<code>N</code>来处理以下pet.txt文件时</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">This is your cat</span><br><span class="line">  my cat&apos;s name is betty</span><br><span class="line">This is your dog</span><br><span class="line">  my dog&apos;s name is frank</span><br><span class="line">This is your fish</span><br><span class="line">  my fish&apos;s name is george</span><br><span class="line">This is your goat</span><br><span class="line">  my goat&apos;s name is adam</span><br></pre></td></tr></table></figure>
+<p>会把原文本中的偶数行纳入奇数行进行匹配，就成了以下效果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">This is my cat\n  my cat&apos;s name is betty</span><br><span class="line">This is my dog\n  my dog&apos;s name is frank</span><br><span class="line">This is my fish\n  my fish&apos;s name is george</span><br><span class="line">This is my goat\n  my goat&apos;s name is adam</span><br></pre></td></tr></table></figure>
+<p>那么使用命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed &apos;N;s/\n/,/&apos; pet.txt</span><br></pre></td></tr></table></figure>
+<p>就会出现以下效果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">This is my cat,  my cat&apos;s name is betty</span><br><span class="line">This is my dog,  my dog&apos;s name is frank</span><br><span class="line">This is my fish,  my fish&apos;s name is george</span><br><span class="line">This is my goat,  my goat&apos;s name is adam</span><br></pre></td></tr></table></figure>
+<h3 id="a命令和i命令"><a href="#a命令和i命令" class="headerlink" title="a命令和i命令"></a>a命令和i命令</h3><p>a : append </p>
+<p>i : insert</p>
+<p>这两条命令是用来添加行的。分别举个例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed &quot;1 i This is Lyh&quot;</span><br></pre></td></tr></table></figure>
+<p>表示在第一行<strong>前</strong>插入一行(insert)</p>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed &quot;1 a This is Lyh&quot;</span><br></pre></td></tr></table></figure>
+<p>表示在第一行<strong>后</strong>插入一行(append)</p>
+<p>还可以使用匹配来添加文本:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed &quot;/fish/a This is Lyh&quot; pet.txt</span><br></pre></td></tr></table></figure>
+<h3 id="d命令"><a href="#d命令" class="headerlink" title="d命令"></a>d命令</h3><p>删除匹配行,举三个例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sed &apos;/fish/d&apos; pet.txt</span><br><span class="line">#删除fish这一行</span><br><span class="line"></span><br><span class="line">sed &apos;2d&apos; pet.txt</span><br><span class="line">#删除第二行</span><br><span class="line"></span><br><span class="line">sed &apos;2,$d&apos; pet.txt</span><br><span class="line">#删除第二到最后一行</span><br></pre></td></tr></table></figure>
+<h3 id="p命令"><a href="#p命令" class="headerlink" title="p命令"></a>p命令</h3><p>p命令可以理解为是grep式的命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"># 匹配fish并输出，可以看到fish的那一行被打了两遍，</span><br><span class="line"># 这是因为sed处理时会把处理的信息输出</span><br><span class="line">$ sed &apos;/fish/p&apos; pet.txt</span><br><span class="line">This is my cat, my cat&apos;s name is betty</span><br><span class="line">This is my dog, my dog&apos;s name is frank</span><br><span class="line">This is my fish, my fish&apos;s name is george</span><br><span class="line">This is my fish, my fish&apos;s name is george</span><br><span class="line">This is my goat, my goat&apos;s name is adam</span><br><span class="line"> </span><br><span class="line"># 使用n参数就能只输出一行</span><br><span class="line">$ sed -n &apos;/fish/p&apos; pet.txt</span><br><span class="line">This is my fish, my fish&apos;s name is george</span><br><span class="line"> </span><br><span class="line"># 从一个模式到另一个模式</span><br><span class="line">$ sed -n &apos;/dog/,/fish/p&apos; pet.txt</span><br><span class="line">This is my dog, my dog&apos;s name is frank</span><br><span class="line">This is my fish, my fish&apos;s name is george</span><br><span class="line"> </span><br><span class="line">#从第一行打印到匹配fish成功的那一行</span><br><span class="line">$ sed -n &apos;1,/fish/p&apos; pet.txt</span><br><span class="line">This is my cat, my cat&apos;s name is betty</span><br><span class="line">This is my dog, my dog&apos;s name is frank</span><br><span class="line">This is my fish, my fish&apos;s name is george</span><br></pre></td></tr></table></figure>
+<h2 id="基本知识"><a href="#基本知识" class="headerlink" title="基本知识"></a>基本知识</h2><ul>
+<li><p>Pattern Space: 关于参数-n，表示取消默认输出，相当于–quiet，–silent。在sed处理文件的时候，每一行都被保存在一个叫模式空间的临时缓冲区中，除非行被删除或者输出被取消，否则所有被处理的行都将打印在屏幕上。接着模式空间被清空，并存入新的一行等待处理。</p>
+</li>
+<li><p>Address：[address[,address]][!]{cmd}，其中的!表示匹配成功后是否执行命令，address可以是一个数字，也可以是一个模式，可以通过逗号分隔两个address表示两个address的区间。</p>
+</li>
+<li><p>命令打包：cmd可以是多个，它们可以用分号分开，可以用大括号括起来作为嵌套命令</p>
+</li>
+</ul>
+<p>举个例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sed &apos;3,6 &#123;/This/&#123;/fish/d&#125;&#125;&apos; pet.txt</span><br><span class="line">#对3行到第6行，匹配/This/成功后，再匹配/fish/，成功后执行d命令</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sed &apos;1,$&#123;/This/d ; s/^ *//g&#125;&apos; pets.txt</span><br><span class="line">#从第一行到最后一行，如果匹配到This，则删除之；如果前面有空格，则去除空格</span><br></pre></td></tr></table></figure>
+<ul>
+<li>HoldSpace: 保持空间</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">g：将hold space中的内容拷贝到pattern space中，原来pattern space里的内容清除</span><br><span class="line">G：将hold space中的内容append到pattern space\n后</span><br><span class="line">h：将pattern space中的内容拷贝到hold space中，原来的hold space里的内容被清除</span><br><span class="line">H：将pattern space中的内容append到hold space\n后</span><br><span class="line">x：交换pattern space和hold space的内容</span><br></pre></td></tr></table></figure>
+<p>举个例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -e &apos;/test/h&apos; -e &apos;$G‘  example</span><br></pre></td></tr></table></figure>
+<p>在这个例子里，匹配test的行被找到后，将存入模式空间，h命令将其复制并存入一个称为保持缓存区的特殊缓冲区内。第二条语句的意思是，当到达最后一行后，G命令取出保持缓冲区的行，然后把它放回模式空间中，且追加到现在已经存在于模式空间中的行的末尾。在这个例子中就是追加到最后一行。简单来说，任何包含test的行都被复制并追加到该文件的末尾。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -e &apos;/test/h&apos; -e &apos;/check/x&apos; example</span><br></pre></td></tr></table></figure>
+<p>互换模式空间和保持缓冲区的内容。也就是把包含test与check的行互换。</p>
+<ul>
+<li>执行sed脚本：sed -f test.sed</li>
+</ul>
+<p>Sed对于脚本中输入的命令非常挑剔，在命令的末尾不能有任何空白或文本，如果在一行中有多个命令，要用分号分隔。以#开头的行为注释行，且不能跨行。</p>
+<p>ps: 去除空白行：sed ‘/^ *$/d’ file</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/shell/" rel="tag"># shell</a>
+          
+            <a href="/tags/sed/" rel="tag"># sed</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/30/正则表达式学习/" rel="next" title="正则表达式学习">
+                <i class="fa fa-chevron-left"></i> 正则表达式学习
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/08/PS命令/" rel="prev" title="PS命令">
+                PS命令 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Dlala</p>
+              <p class="site-description motion-element" itemprop="description">编程是不可能离开Google的(￣^￣)ゞ</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">Artikel</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">Tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#sed学习"><span class="nav-number">1.</span> <span class="nav-text">sed学习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#s替换命令"><span class="nav-number">1.1.</span> <span class="nav-text">s替换命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多个匹配"><span class="nav-number">1.2.</span> <span class="nav-text">多个匹配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#圆括号匹配"><span class="nav-number">1.3.</span> <span class="nav-text">圆括号匹配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sed的命令"><span class="nav-number">1.4.</span> <span class="nav-text">sed的命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#N命令"><span class="nav-number">1.4.1.</span> <span class="nav-text">N命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#a命令和i命令"><span class="nav-number">1.4.2.</span> <span class="nav-text">a命令和i命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#d命令"><span class="nav-number">1.4.3.</span> <span class="nav-text">d命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#p命令"><span class="nav-number">1.4.4.</span> <span class="nav-text">p命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本知识"><span class="nav-number">1.5.</span> <span class="nav-text">基本知识</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Dlala</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
